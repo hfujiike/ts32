@@ -1,23 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace T32
 {
+    // フォーム2
     public partial class Form2 : Form
     {
-
         // 設定条件データの dictionary の作成
-        static Dictionary<string, string> D_jo = new Dictionary<string, string>()
+        static readonly Dictionary<string, string> D_jo = new Dictionary<string, string>()
         {
-            {"pv","FGK32FM 7.1.1.1707"},
+            {"jobname","メール送信（ホルダ内ファイルの宛先別の一括送信）"},
             {"make","FGK-SYSTEMS"},
         };
 
@@ -27,18 +21,18 @@ namespace T32
 
         // その他
         static string s_jfile0;                // 条件ファイル0
-        static string s_sendm;                 // 送信方法　M=Outlook/D=intraSERVER
+        public string s_SecureSO;              // SecureSocketOptions 選択
 
         // メッセージ用
         static string s_ermes = "";
-
-
-
+        
+        // form2
         public Form2()
         {
             InitializeComponent();
         }
 
+        // MessageBoxIcon.Warning
         public void WBox(string e1, string e2)
         {
             MessageBox.Show(e1 + "\r\n" + e2,
@@ -47,10 +41,9 @@ namespace T32
                     MessageBoxIcon.Warning);
         }
 
-        private bool check_mail_address(string m_addr)
+        //ﾒｰﾙｱﾄﾞﾚｽのﾁｪｯｸ
+        private bool Check_mail_address(string m_addr)
         {
-            //ﾒｰﾙｱﾄﾞﾚｽのﾁｪｯｸ　
-
             string s_jo = @"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$";
 
             if (System.Text.RegularExpressions.Regex.IsMatch(
@@ -65,11 +58,9 @@ namespace T32
             }
         }
 
-
-        public void a21_yomikomi()
+        // ==== 条件データFを読み、設定条件データの dictionary を格納
+        public void A21_yomikomi()
         {
-            // ==== 条件データFを読み、設定条件データの dictionary を格納
-
             string s_rec = "";
             string[] a_item;
 
@@ -97,48 +88,37 @@ namespace T32
                     }
 
                 }
-                string s_hname;
-                string s_hport;
-                string s_from_ma;
-                string s_Lkey;
-                string s_hid;
-                string s_hpw;
-                string s_ssl;
 
-                D_jo.TryGetValue("hname", out s_hname);
-                D_jo.TryGetValue("hport", out s_hport);
-                D_jo.TryGetValue("from_ma", out s_from_ma);
-                D_jo.TryGetValue("Lkey", out s_Lkey);
-                D_jo.TryGetValue("hid", out s_hid);
-                D_jo.TryGetValue("hpw", out s_hpw);
-                D_jo.TryGetValue("ssl", out s_ssl);
-                D_jo.TryGetValue("sendm", out s_sendm);
+                D_jo.TryGetValue("hname", out string s_hname);
+                D_jo.TryGetValue("hport", out string s_hport);
+                D_jo.TryGetValue("from_ma", out string s_from_ma);
+                D_jo.TryGetValue("hid", out string s_hid);
+                D_jo.TryGetValue("hpw", out string s_hpw);
+                D_jo.TryGetValue("SecureSO", out s_SecureSO);
 
                 TB_hname.Text = s_hname;
                 TB_hport.Text = s_hport;
                 TB_from_ma.Text = s_from_ma;
-                TB_Lkey.Text = s_Lkey;
                 TB_hid.Text = s_hid;
                 TB_hpw.Text = s_hpw;
 
-                if (s_ssl == "Y")
+                switch (s_SecureSO)
                 {
-                    CF_ssl.Checked = true;
-                }
-                else
-                {
-                    CF_ssl.Checked = false;
-                }
-
-                if (s_sendm == "M")
-                {
-                    radioButton1.Checked = true;
-                    radioButton2.Checked = false;
-                }
-                else
-                {
-                    radioButton1.Checked = false;
-                    radioButton2.Checked = true;
+                    case "S":
+                        RB_SecureSO_A.Checked = false;
+                        RB_SecureSO_S.Checked = true;
+                        RB_SecureSO_T.Checked = false;
+                        break;
+                    case "T":
+                        RB_SecureSO_A.Checked = false;
+                        RB_SecureSO_S.Checked = false;
+                        RB_SecureSO_T.Checked = true;
+                        break;
+                    default:
+                        RB_SecureSO_A.Checked = true;
+                        RB_SecureSO_S.Checked = false;
+                        RB_SecureSO_T.Checked = false;
+                        break;
                 }
 
                 return;
@@ -151,23 +131,14 @@ namespace T32
             }
         }
 
-
-        public void a22_check()
+        // ==== チェック
+        public void A22_check()
         {
-            // ==== チェック
-
             s_ermes = "メール送信ホストID";
             D_jo["hid"] = TB_hid.Text;
 
             s_ermes = "メール送信ホストパスワード";
             D_jo["hpw"] = TB_hpw.Text;
-
-            s_ermes = "メール送信ホストSSL";
-            D_jo["ssl"] = "N";
-            if (CF_ssl.Checked)
-            {
-                D_jo["ssl"] = "Y";
-            }
 
             s_ermes = "メール送信ホスト";
             D_jo["hname"] = TB_hname.Text;
@@ -188,46 +159,37 @@ namespace T32
 
             }
 
-            TB_hname_mes.Text = "受付ました。ここで通信確認はしていません。";
-            TB_hport_mes.Text = "本番の送信で確認されます。";
+            TB_w2_mes1.Text = "受付ました。ここで通信確認はしていません。";
+            TB_w2_mes2.Text = "本番の送信で確認されます。";
 
             s_ermes = "ホスト登録アドレスチェック";
             D_jo["from_ma"] = TB_from_ma.Text;
-            if (!check_mail_address(TB_from_ma.Text))
+            if (!Check_mail_address(TB_from_ma.Text))
             {
                 WBox(s_ermes, "送信者アドレスとして正しくない。\r\n入れなおしてください。");
             }
 
             s_ermes = "ホスト送信方式チェック";
-            if (radioButton1.Checked)
+            if (RB_SecureSO_A.Checked)
             {
-                s_sendm = "M";
-                D_jo["sendm"] = s_sendm;
+                s_SecureSO = "A";
+                D_jo["SecureSO"] = s_SecureSO;
             }
-            if (radioButton2.Checked)
+            if (RB_SecureSO_S.Checked)
             {
-                s_sendm = "D";
-                D_jo["sendm"] = s_sendm;
+                s_SecureSO = "S";
+                D_jo["SecureSO"] = s_SecureSO;
             }
-
-            // ライセンスキー (shimoren 3189) + (YYMM 1707) + (t3200)  = 8096
-            s_ermes = "ライセンスキー";
-            D_jo["Lkey"] = TB_Lkey.Text;
-            if (TB_Lkey.Text == "fgk8096")
+            if (RB_SecureSO_T.Checked)
             {
-                WBox(s_ermes, "照合しています。十分にメールが送信可能です。");
-            }
-            else
-            {
-                WBox(s_ermes, "照合していません。試供モードで1回10メールまで送信可能");
+                s_SecureSO = "T";
+                D_jo["SecureSO"] = s_SecureSO;
             }
         }
 
-
-
-        public void a23_kakidashi()
+        // ==== 条件のファイルの書き出し
+        public void A23_kakidashi()
         {
-            // ==== 条件のファイルの書き出し　
             try
             {
                 s_ermes = "CB_disp_Clic 1";
@@ -246,8 +208,8 @@ namespace T32
 
                 }
 
-                TB_hname_mes.Text = "登録または修正を";
-                TB_hport_mes.Text = "開始してください。";
+                TB_w2_mes1.Text = "設定条件が保存されました。";
+                TB_w2_mes2.Text = "";
 
                 return;
             }
@@ -259,84 +221,63 @@ namespace T32
             }
         }
 
-
-        public void a24_radio()
-        {
-            // ==== 送信方式による入力用表示変更
-
-            if (s_sendm == "M")
-            {
-                TB_hname.ReadOnly = true;
-                TB_hport.ReadOnly = true;
-                TB_hid.ReadOnly = true;
-                TB_hpw.ReadOnly = true;
-            }
-            else
-            {
-                TB_hname.ReadOnly = false;
-                TB_hport.ReadOnly = false;
-                TB_hid.ReadOnly = false;
-                TB_hpw.ReadOnly = false;
-            }
-        }
-
-
+        // ==== チェックと書き出し
         private void CB_set_Click(object sender, EventArgs e)
         {
-            // ==== チェックと書き出し
+            A22_check();
 
-            a22_check();
-
-            a23_kakidashi();
-
-            a24_radio();
+            A23_kakidashi();
 
         }
 
-
+        // ==== form load process
         private void Form2_Load(object sender, EventArgs e)
         {
-            // ==== form load process
-
             s_apathfull = System.Reflection.Assembly.GetExecutingAssembly().Location;
             s_apath = Path.GetDirectoryName(s_apathfull);
 
             s_jfile0 = s_apath + @"\T32jouken0.txt";
 
-            TB_hname_mes.Text = "登録または修正する場合は";
-            TB_hport_mes.Text = "表示ボタンをクリックください。";
+            A21_yomikomi();
 
-            a21_yomikomi();
-
-            a24_radio();
+            TB_w2_mes1.Text = "現在の設定条件を表示しています。";
+            TB_w2_mes2.Text = "";
 
         }
 
+        // ==== 表示
         private void CB_disp_Click(object sender, EventArgs e)
         {
-            // ==== hyouji
+            A21_yomikomi();
 
-            a21_yomikomi();
-
-            a24_radio();
-
+            TB_w2_mes1.Text = "登録された設定条件を再表示しています。";
+            TB_w2_mes2.Text = "";
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        // Radio 1,2
+        private void RB_SecureSO_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            if (RB_SecureSO_A.Checked)
             {
-                s_sendm = "M";
+                s_SecureSO = "A";
             }
-            else
+            if (RB_SecureSO_S.Checked)
             {
-                s_sendm = "D";
+                s_SecureSO = "S";
             }
+            if (RB_SecureSO_T.Checked)
+            {
+                s_SecureSO = "T";
+            }
+        }
 
-            a24_radio();
+        // 戻るボタン
+        private void CB_back_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
     // ----------------------------------------------------------------
     // ----------
-    // ----------
+    // ---------- 2020/03/04 fgk
 }
