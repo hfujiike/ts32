@@ -48,6 +48,10 @@
             this.RB_SecureSO_T = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.CB_back = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.CB_workdirset = new System.Windows.Forms.Button();
+            this.TB_workdir = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -57,9 +61,9 @@
             this.label1.Location = new System.Drawing.Point(16, 11);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(255, 17);
+            this.label1.Size = new System.Drawing.Size(179, 17);
             this.label1.TabIndex = 1;
-            this.label1.Text = "データファイル一括メール配布（設定）\r\n";
+            this.label1.Text = "設定（分割とメール送信）\r\n";
             // 
             // TB_from_ma
             // 
@@ -67,7 +71,7 @@
             this.TB_from_ma.Location = new System.Drawing.Point(184, 82);
             this.TB_from_ma.Margin = new System.Windows.Forms.Padding(4);
             this.TB_from_ma.Name = "TB_from_ma";
-            this.TB_from_ma.Size = new System.Drawing.Size(337, 24);
+            this.TB_from_ma.Size = new System.Drawing.Size(385, 24);
             this.TB_from_ma.TabIndex = 12;
             // 
             // label6
@@ -112,7 +116,7 @@
             this.TB_hname.Location = new System.Drawing.Point(184, 187);
             this.TB_hname.Margin = new System.Windows.Forms.Padding(4);
             this.TB_hname.Name = "TB_hname";
-            this.TB_hname.Size = new System.Drawing.Size(337, 24);
+            this.TB_hname.Size = new System.Drawing.Size(386, 24);
             this.TB_hname.TabIndex = 16;
             // 
             // CB_set
@@ -139,7 +143,7 @@
             // 
             this.TB_w2_mes1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TB_w2_mes1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TB_w2_mes1.Location = new System.Drawing.Point(21, 392);
+            this.TB_w2_mes1.Location = new System.Drawing.Point(21, 394);
             this.TB_w2_mes1.Margin = new System.Windows.Forms.Padding(4);
             this.TB_w2_mes1.Name = "TB_w2_mes1";
             this.TB_w2_mes1.ReadOnly = true;
@@ -150,7 +154,7 @@
             // 
             this.TB_w2_mes2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TB_w2_mes2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TB_w2_mes2.Location = new System.Drawing.Point(20, 421);
+            this.TB_w2_mes2.Location = new System.Drawing.Point(19, 379);
             this.TB_w2_mes2.Margin = new System.Windows.Forms.Padding(4);
             this.TB_w2_mes2.Name = "TB_w2_mes2";
             this.TB_w2_mes2.ReadOnly = true;
@@ -175,7 +179,7 @@
             this.TB_hid.Location = new System.Drawing.Point(184, 123);
             this.TB_hid.Margin = new System.Windows.Forms.Padding(4);
             this.TB_hid.Name = "TB_hid";
-            this.TB_hid.Size = new System.Drawing.Size(337, 24);
+            this.TB_hid.Size = new System.Drawing.Size(385, 24);
             this.TB_hid.TabIndex = 23;
             // 
             // label7
@@ -196,7 +200,7 @@
             this.TB_hpw.Location = new System.Drawing.Point(184, 155);
             this.TB_hpw.Margin = new System.Windows.Forms.Padding(4);
             this.TB_hpw.Name = "TB_hpw";
-            this.TB_hpw.Size = new System.Drawing.Size(337, 24);
+            this.TB_hpw.Size = new System.Drawing.Size(385, 24);
             this.TB_hpw.TabIndex = 25;
             // 
             // CB_disp
@@ -214,7 +218,7 @@
             // 
             this.RB_SecureSO_A.AutoSize = true;
             this.RB_SecureSO_A.Checked = true;
-            this.RB_SecureSO_A.Location = new System.Drawing.Point(235, 285);
+            this.RB_SecureSO_A.Location = new System.Drawing.Point(315, 247);
             this.RB_SecureSO_A.Margin = new System.Windows.Forms.Padding(4);
             this.RB_SecureSO_A.Name = "RB_SecureSO_A";
             this.RB_SecureSO_A.Size = new System.Drawing.Size(58, 19);
@@ -227,7 +231,7 @@
             // RB_SecureSO_S
             // 
             this.RB_SecureSO_S.AutoSize = true;
-            this.RB_SecureSO_S.Location = new System.Drawing.Point(235, 312);
+            this.RB_SecureSO_S.Location = new System.Drawing.Point(315, 274);
             this.RB_SecureSO_S.Margin = new System.Windows.Forms.Padding(4);
             this.RB_SecureSO_S.Name = "RB_SecureSO_S";
             this.RB_SecureSO_S.Size = new System.Drawing.Size(90, 19);
@@ -239,7 +243,7 @@
             // RB_SecureSO_T
             // 
             this.RB_SecureSO_T.AutoSize = true;
-            this.RB_SecureSO_T.Location = new System.Drawing.Point(235, 338);
+            this.RB_SecureSO_T.Location = new System.Drawing.Point(315, 300);
             this.RB_SecureSO_T.Name = "RB_SecureSO_T";
             this.RB_SecureSO_T.Size = new System.Drawing.Size(99, 19);
             this.RB_SecureSO_T.TabIndex = 30;
@@ -252,7 +256,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label4.Location = new System.Drawing.Point(181, 257);
+            this.label4.Location = new System.Drawing.Point(279, 228);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(157, 15);
@@ -270,11 +274,57 @@
             this.CB_back.UseVisualStyleBackColor = true;
             this.CB_back.Click += new System.EventHandler(this.CB_back_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(95, 336);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(72, 15);
+            this.label8.TabIndex = 33;
+            this.label8.Text = "作業ホルダ";
+            // 
+            // CB_workdirset
+            // 
+            this.CB_workdirset.Location = new System.Drawing.Point(184, 332);
+            this.CB_workdirset.Margin = new System.Windows.Forms.Padding(4);
+            this.CB_workdirset.Name = "CB_workdirset";
+            this.CB_workdirset.Size = new System.Drawing.Size(48, 25);
+            this.CB_workdirset.TabIndex = 34;
+            this.CB_workdirset.Text = "参照";
+            this.CB_workdirset.UseVisualStyleBackColor = true;
+            this.CB_workdirset.Click += new System.EventHandler(this.CB_workdirset_Click);
+            // 
+            // TB_workdir
+            // 
+            this.TB_workdir.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TB_workdir.Location = new System.Drawing.Point(239, 332);
+            this.TB_workdir.Margin = new System.Windows.Forms.Padding(4);
+            this.TB_workdir.Name = "TB_workdir";
+            this.TB_workdir.Size = new System.Drawing.Size(331, 24);
+            this.TB_workdir.TabIndex = 35;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label9.Location = new System.Drawing.Point(247, 360);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(224, 15);
+            this.label9.TabIndex = 36;
+            this.label9.Text = "ホルダ「BunkatsuData」の格納ホルダ";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 451);
+            this.ClientSize = new System.Drawing.Size(589, 422);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.TB_workdir);
+            this.Controls.Add(this.CB_workdirset);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.CB_back);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.RB_SecureSO_T);
@@ -297,7 +347,7 @@
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form2";
-            this.Text = "FILE配布";
+            this.Text = "dMail-Config";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -326,5 +376,9 @@
         private System.Windows.Forms.RadioButton RB_SecureSO_T;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button CB_back;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button CB_workdirset;
+        private System.Windows.Forms.TextBox TB_workdir;
+        private System.Windows.Forms.Label label9;
     }
 }

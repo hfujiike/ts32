@@ -1,0 +1,40 @@
+
+A31 01 jouken file open 
+A31 03 jouken each item set 
+A35 01 excelin ブックオブジェクトを作成 
+A35 02 excelin シートオブジェクトを作成 sheet:C:\fgksystems\dmail\dd1\order_data.xlsx
+A35 03 excelin 調査 1 
+A35 04 sheetend row: 30
+A35 06 excelin 分割列 
+A35 07 excelin ヘッダーの終わり調査 
+A35 07 excelin i_xcol: 4
+A35 07 excelin s_btitle: 注先コード
+A35 09 excelin タイトルcol:4 
+A35 12 excelin xrow: 9
+A35 12 excelin xr_headend: 9
+A35 13 excelin データ部分の endline調査 
+A35 13 excelin xr_datatop: 10
+A35 13 excelin xr_dataend: 30
+A35 17 excelin 分割アレイ作成 
+A36 11 excel out horder make    
+A36 21 excel out start    
+A36 22 excel out for  ( 1/5)
+A37 11 ex back  other rows del: 13:31 ...................
+A37 21 格納のセーブ  C:\fgksystems\dmail\dd2\BunkatsuDATA\345_order_data.xlsx
+A36 22 excel out for  ( 2/5)
+A37 11 ex back  other rows del: 15:31 .................
+A37 12 ex front other rows del: 10:12 ..
+A37 21 格納のセーブ  C:\fgksystems\dmail\dd2\BunkatsuDATA\6677_order_data.xlsx
+A36 22 excel out for  ( 3/5)
+A37 11 ex back  other rows del: 18:31 ..............
+A37 12 ex front other rows del: 10:14 ....
+A37 21 格納のセーブ  C:\fgksystems\dmail\dd2\BunkatsuDATA\200001_order_data.xlsx
+A36 22 excel out for  ( 4/5)
+A37 11 ex back  other rows del: 25:31 .......
+A37 12 ex front other rows del: 10:17 .......
+A37 21 格納のセーブ  C:\fgksystems\dmail\dd2\BunkatsuDATA\A111_order_data.xlsx
+A36 22 excel out for  ( 5/5)
+A37 12 ex front other rows del: 10:24 ..............
+A37 21 格納のセーブ  C:\fgksystems\dmail\dd2\BunkatsuDATA\R444_order_data.xlsx
+A36 91 excel out end 
+A39 91  

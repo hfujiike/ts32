@@ -1,8 +1,0 @@
-jobname,メール送信（ホルダ内ファイルの宛先別の一括送信）,
-make,FGK-SYSTEMS,
-hid,fujiije@gmail.com,
-hpw,Haru2825,
-hname,smtp.gmail.com,
-hport,587,
-from_ma,fujiije@gmail.com,
-SecureSO,T,

@@ -9,19 +9,27 @@ namespace T32
     public partial class Form2 : Form
     {
         // 設定条件データの dictionary の作成
-        static readonly Dictionary<string, string> D_jo = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> D_f2jo = new Dictionary<string, string>()
         {
-            {"jobname","メール送信（ホルダ内ファイルの宛先別の一括送信）"},
-            {"make","FGK-SYSTEMS"},
+            {"JDATA1","1"},
+            {"JDATA2","2"},
         };
 
         // 実行ホルダ
         static string s_apathfull;             // 実行fullﾊﾟｽ
         static string s_apath;                 // 実行ﾊﾟｽ
 
-        // その他
-        static string s_jfile0;                // 条件ファイル0
+        // 設定のパスファイル
+        static string pf_jouken;                // 条件ファイル0
+
+        // 設定項目
+        public string pd_work;                 // 作業ホルダー
+        public string s_hname;                 // ホスト名
+        public string s_hport;                 // ホストポート
         public string s_SecureSO;              // SecureSocketOptions 選択
+        public string s_from_ma;               // 送信者アドレス
+        public string s_hid;                   // ホストid
+        public string s_hpw;                   // ホストpassword
 
         // メッセージ用
         static string s_ermes = "";
@@ -36,7 +44,7 @@ namespace T32
         public void WBox(string e1, string e2)
         {
             MessageBox.Show(e1 + "\r\n" + e2,
-                    "FILE配布",
+                    "Warning(Excel分割male送信)",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
         }
@@ -66,41 +74,52 @@ namespace T32
 
             try
             {
-                s_ermes += "CB_disp_Click 1 ";
+                s_ermes += "A21_yomikomi 1 start ";
 
-                if (File.Exists(s_jfile0))
+                if (File.Exists(pf_jouken))
                 {
                     using (FileStream FS_jouken = new FileStream(
-                        s_jfile0, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        pf_jouken, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     using (StreamReader SR_jouken = new StreamReader(FS_jouken))
                     {
                         while (SR_jouken.Peek() >= 0)
                         {
-                            s_ermes = "CB_disp_Click 2 ";
+                            s_ermes = "A21_yomikomi 2 fileread";
 
                             s_rec = SR_jouken.ReadLine();
                             s_rec += ",,,,";
                             a_item = s_rec.Split(',');
-                            string s_djo_k = a_item[0];
-                            D_jo[s_djo_k] = a_item[1];
+                            if (D_f2jo.ContainsKey(a_item[0]))
+                            {
+                                D_f2jo[a_item[0]] = a_item[1];
+                            }
+                            else
+                            {
+                                D_f2jo.Add(a_item[0], a_item[1]);
+                            }
                         }
                         SR_jouken.Close();
                     }
-
                 }
 
-                D_jo.TryGetValue("hname", out string s_hname);
-                D_jo.TryGetValue("hport", out string s_hport);
-                D_jo.TryGetValue("from_ma", out string s_from_ma);
-                D_jo.TryGetValue("hid", out string s_hid);
-                D_jo.TryGetValue("hpw", out string s_hpw);
-                D_jo.TryGetValue("SecureSO", out s_SecureSO);
+                s_ermes = "A21_yomikomi 3 item set";
+
+                D_f2jo.TryGetValue("hname", out s_hname);
+                D_f2jo.TryGetValue("hport", out s_hport);
+                D_f2jo.TryGetValue("from_ma", out s_from_ma);
+                D_f2jo.TryGetValue("hid", out s_hid);
+                D_f2jo.TryGetValue("hpw", out s_hpw);
+                D_f2jo.TryGetValue("SecureSO", out s_SecureSO);
+                D_f2jo.TryGetValue("workdir", out pd_work);
+
+                s_ermes = "A21_yomikomi 4 item disp";
 
                 TB_hname.Text = s_hname;
                 TB_hport.Text = s_hport;
                 TB_from_ma.Text = s_from_ma;
                 TB_hid.Text = s_hid;
                 TB_hpw.Text = s_hpw;
+                TB_workdir.Text = pd_work;
 
                 switch (s_SecureSO)
                 {
@@ -120,9 +139,7 @@ namespace T32
                         RB_SecureSO_T.Checked = false;
                         break;
                 }
-
                 return;
-
             }
             catch (Exception ex)
             {
@@ -135,35 +152,34 @@ namespace T32
         public void A22_check()
         {
             s_ermes = "メール送信ホストID";
-            D_jo["hid"] = TB_hid.Text;
+            D_f2jo["hid"] = TB_hid.Text;
 
             s_ermes = "メール送信ホストパスワード";
-            D_jo["hpw"] = TB_hpw.Text;
+            D_f2jo["hpw"] = TB_hpw.Text;
 
             s_ermes = "メール送信ホスト";
-            D_jo["hname"] = TB_hname.Text;
+            D_f2jo["hname"] = TB_hname.Text;
             if (TB_hname.Text == "")
             {
                 WBox(s_ermes, "空です?\r\n正しいホスト名を入れてください");
             }
 
             s_ermes = "メール送信ホストのポート";
-            D_jo["hport"] = TB_hport.Text;
+            D_f2jo["hport"] = TB_hport.Text;
             if (TB_hport.Text == "25" || TB_hport.Text == "587" || TB_hport.Text == "465" || TB_hport.Text == "")
             {
-                D_jo["hport"] = TB_hport.Text;
+                D_f2jo["hport"] = TB_hport.Text;
             }
             else
             {
                 WBox(s_ermes, "設定不可?\r\n正しいポートを入れてください");
-
             }
 
             TB_w2_mes1.Text = "受付ました。ここで通信確認はしていません。";
             TB_w2_mes2.Text = "本番の送信で確認されます。";
 
-            s_ermes = "ホスト登録アドレスチェック";
-            D_jo["from_ma"] = TB_from_ma.Text;
+            s_ermes = "送信者アドレスチェック";
+            D_f2jo["from_ma"] = TB_from_ma.Text;
             if (!Check_mail_address(TB_from_ma.Text))
             {
                 WBox(s_ermes, "送信者アドレスとして正しくない。\r\n入れなおしてください。");
@@ -173,18 +189,30 @@ namespace T32
             if (RB_SecureSO_A.Checked)
             {
                 s_SecureSO = "A";
-                D_jo["SecureSO"] = s_SecureSO;
+                D_f2jo["SecureSO"] = s_SecureSO;
             }
             if (RB_SecureSO_S.Checked)
             {
                 s_SecureSO = "S";
-                D_jo["SecureSO"] = s_SecureSO;
+                D_f2jo["SecureSO"] = s_SecureSO;
             }
             if (RB_SecureSO_T.Checked)
             {
                 s_SecureSO = "T";
-                D_jo["SecureSO"] = s_SecureSO;
+                D_f2jo["SecureSO"] = s_SecureSO;
             }
+
+            s_ermes = "作業ホルダー";
+            D_f2jo["workdir"] = TB_workdir.Text;
+            if (TB_workdir.Text == "")
+            {
+                WBox(s_ermes, "空です?\r\n正しい作業ホルダーを入れてください");
+            }
+            if (!Directory.Exists(D_f2jo["workdir"]))
+            {
+                WBox(s_ermes, "ホルダが存在しません。");
+            }
+
         }
 
         // ==== 条件のファイルの書き出し
@@ -192,13 +220,13 @@ namespace T32
         {
             try
             {
-                s_ermes = "CB_disp_Clic 1";
+                s_ermes = "A23_kakidashi 1";
 
                 string s_rec;
-                using (FileStream FS_jw = new FileStream(s_jfile0, FileMode.Create))
+                using (FileStream FS_jw = new FileStream(pf_jouken, FileMode.Create))
                 using (StreamWriter SW_jw = new StreamWriter(FS_jw))
                 {
-                    foreach (var px in D_jo)
+                    foreach (var px in D_f2jo)
                     {
                         s_rec = px.Key + "," + px.Value + ",";
                         SW_jw.WriteLine(s_rec);
@@ -221,7 +249,7 @@ namespace T32
             }
         }
 
-        // ==== チェックと書き出し
+        // ====ボタン(チェックと書き出し)
         private void CB_set_Click(object sender, EventArgs e)
         {
             A22_check();
@@ -236,7 +264,7 @@ namespace T32
             s_apathfull = System.Reflection.Assembly.GetExecutingAssembly().Location;
             s_apath = Path.GetDirectoryName(s_apathfull);
 
-            s_jfile0 = s_apath + @"\T32jouken0.txt";
+            pf_jouken = s_apath + @"\T32jouken1.txt";
 
             A21_yomikomi();
 
@@ -245,7 +273,7 @@ namespace T32
 
         }
 
-        // ==== 表示
+        // ====ボタン(再表示)
         private void CB_disp_Click(object sender, EventArgs e)
         {
             A21_yomikomi();
@@ -254,7 +282,7 @@ namespace T32
             TB_w2_mes2.Text = "";
         }
 
-        // Radio 1,2
+        // ===ボタン(送信条件 Radio A,S,T)
         private void RB_SecureSO_CheckedChanged(object sender, EventArgs e)
         {
             if (RB_SecureSO_A.Checked)
@@ -271,11 +299,26 @@ namespace T32
             }
         }
 
-        // 戻るボタン
+        // ===ボタン(戻る)
         private void CB_back_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        // ===ボタン(作業ホルダ)
+        private void CB_workdirset_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog oFolderBDWH = new FolderBrowserDialog();
+            oFolderBDWH.Description = "出力ﾌｫﾙﾀﾞ設定";
+            oFolderBDWH.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            oFolderBDWH.SelectedPath = TB_workdir.Text;
+            if (oFolderBDWH.ShowDialog() == DialogResult.OK)
+            {
+                TB_workdir.Text = oFolderBDWH.SelectedPath;
+            }
+            oFolderBDWH.Dispose();
+        }
+
     }
     // ----------------------------------------------------------------
     // ----------

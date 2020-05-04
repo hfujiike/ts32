@@ -34,4 +34,11 @@ C:\aaProgram\TS32\T32\obj\Debug\T32.Properties.Resources.resources
 C:\aaProgram\TS32\T32\obj\Debug\T32.csproj.GenerateResource.cache
 C:\aaProgram\TS32\T32\obj\Debug\T32.csproj.CoreCompileInputs.cache
 C:\aaProgram\TS32\T32\obj\Debug\T32.csproj.CopyComplete
+C:\aaProgram\TS32\T32\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\aaProgram\TS32\T32\bin\Debug\NPOI.dll
+C:\aaProgram\TS32\T32\bin\Debug\NPOI.OOXML.dll
+C:\aaProgram\TS32\T32\bin\Debug\NPOI.OpenXml4Net.dll
+C:\aaProgram\TS32\T32\bin\Debug\NPOI.OpenXmlFormats.dll
+C:\aaProgram\TS32\T32\bin\Debug\ICSharpCode.SharpZipLib.xml
+C:\aaProgram\TS32\T32\obj\Debug\T32.Form3.resources
 C:\aaProgram\TS32\T32\obj\Debug\T32.csprojAssemblyReference.cache

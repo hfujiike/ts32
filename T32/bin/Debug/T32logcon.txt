@@ -1,0 +1,51 @@
+ 
+a00 01 ini   
+a01 01 jouken1 yomikomi  
+a01 11 jouken2 yomikomi  
+a02 01 jouken disp  
+a04 01 条件項目 jouken1 kakidashi 
+a04 21 本文 jouken2 kakidashi 
+a01 01 jouken1 yomikomi  
+a01 11 jouken2 yomikomi  
+a03 01 jcheck 
+a04 01 条件項目 jouken1 kakidashi 
+a04 21 本文 jouken2 kakidashi 
+A52 01 アドレス file read 
+A52 02 address sheet object get:C:\fgksystems\dmail\dd1\address_test1.xlsx
+A52 04 address sheetend row: 5...:. 
+A52 91 アドレス count= 5  E= 0 
+A53 01 send Mailprocess start  
+A53 11 送信者 fgk_systems@yahoo.co.jp 
+A53 12 件名 試験のデータ送信 0330a OutLook H 
+A53 13 添付 C:\fgksystems\dmail\dd2\BunkatsuDATA\200001_order_data.xlsx 
+A53 15 file= 200001_order_data.xlsx
+A53 16 ToAddress: fujiije@gmail.com  
+A53 17 SMTP host: smtp.mail.yahoo.co.jp port: 465 SecureSO: S 
+A53 18 host id: h_fujiike_pc2 host pw: panama77*ya2  
+A53 11 送信者 fgk_systems@yahoo.co.jp 
+A53 12 件名 試験のデータ送信 0330a OutLook H 
+A53 13 添付 C:\fgksystems\dmail\dd2\BunkatsuDATA\345_order_data.xlsx 
+A53 15 file= 345_order_data.xlsx
+A53 33     (NO ADDRESS) SKIP  
+A53 11 送信者 fgk_systems@yahoo.co.jp 
+A53 12 件名 試験のデータ送信 0330a OutLook H 
+A53 13 添付 C:\fgksystems\dmail\dd2\BunkatsuDATA\6677_order_data.xlsx 
+A53 15 file= 6677_order_data.xlsx
+A53 16 ToAddress: fujiije@gmail.com  
+A53 17 SMTP host: smtp.mail.yahoo.co.jp port: 465 SecureSO: S 
+A53 18 host id: h_fujiike_pc2 host pw: panama77*ya2  
+A53 11 送信者 fgk_systems@yahoo.co.jp 
+A53 12 件名 試験のデータ送信 0330a OutLook H 
+A53 13 添付 C:\fgksystems\dmail\dd2\BunkatsuDATA\A111_order_data.xlsx 
+A53 15 file= A111_order_data.xlsx
+A53 16 ToAddress: tama_saemonmnosuke@yahoo.co.jp 
+A53 16 ToAddress: fujiije@gmail.com  
+A53 17 SMTP host: smtp.mail.yahoo.co.jp port: 465 SecureSO: S 
+A53 18 host id: h_fujiike_pc2 host pw: panama77*ya2  
+A53 11 送信者 fgk_systems@yahoo.co.jp 
+A53 12 件名 試験のデータ送信 0330a OutLook H 
+A53 13 添付 C:\fgksystems\dmail\dd2\BunkatsuDATA\R444_order_data.xlsx 
+A53 15 file= R444_order_data.xlsx
+A53 33     (NO ADDRESS) SKIP 
+A53 91 mail send count: 3 
+a91 91 正常終了 
